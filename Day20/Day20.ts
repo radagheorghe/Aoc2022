@@ -1,8 +1,9 @@
-import { link } from 'fs';
 import { InputFile } from '../Common/InputFile'
 
 var input = new InputFile("./day20/input.txt");
 var input1 = new InputFile("./day20/input1.txt");
+var input2 = new InputFile("./day20/input2.txt");
+var input3 = new InputFile("./day20/input3.txt");
 
 class Node {
 
@@ -48,7 +49,7 @@ let nodes = new Array<Node>();
 
 input.getAsLines().map(line => Number(line)).forEach((nr, idx, arr) => {
 
-    let node = new Node(nr * 811589153);
+    let node = new Node(nr);
     nodes.push(node);
 
     if(!first)
@@ -67,16 +68,14 @@ input.getAsLines().map(line => Number(line)).forEach((nr, idx, arr) => {
     }
 })
 
-for(let t = 0; t < 10; t++) {
 for(let i = 0; i < nodes.length; i++) {
     let elem = nodes[i].mData
         
     let toMove = nodes[i]
     if(toMove && toMove.mNext && toMove.mPrev && toMove.mPrev.mPrev) {        
-        for(let idx = 0; idx < Math.abs(elem) % (nodes.length - 1); idx++)
+        for(let idx = elem >= 0 ? 0 : 0; idx < Math.abs(elem); idx++)
           move(toMove, elem > 0 ? toMove.mNext : toMove.mPrev.mPrev)
     }
-}
 }
 
 let sum = 0
